@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração Inicial | Fluxo CLT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/onboarding.js" defer></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-900">
+
+    <div class="w-full max-w-2xl p-8 space-y-6 bg-carbon-light rounded-xl shadow-lg">
+        <div>
+            <h2 class="text-3xl font-bold text-center text-white">Bem-vindo(a) ao <span class="text-accent-gold">Fluxo CLT</span>!</h2>
+            <p class="mt-2 text-center text-gray-400">Vamos configurar o seu perfil financeiro. Isto ajudará a aplicação a fornecer projeções e relatórios precisos.</p>
+        </div>
+
+        <form id="onboarding-form" class="space-y-6">
+            <div class="border-b border-gray-600 pb-4">
+                <h3 class="text-xl font-semibold text-white">Sua Renda Principal</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label for="salario-bruto" class="label-form">Salário Bruto Mensal</label>
+                        <input type="text" id="salario-bruto" class="form-input currency-input" required placeholder="R$ 0,00">
+                    </div>
+                    <div>
+                        <label for="dia-recebimento" class="label-form">Data de Recebimento</label>
+                        <select id="dia-recebimento" class="form-input">
+                            <option value="5-util">5º Dia Útil</option>
+                            <option value="fixo">Dia Fixo do Mês</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-xl font-semibold text-white">Suas Contas Fixas</h3>
+                <p class="text-sm text-gray-400">Adicione as suas despesas recorrentes. Pode adicionar mais depois.</p>
+                <div id="contas-fixas-list" class="space-y-3 mt-4">
+                    <!-- Contas adicionadas dinamicamente aqui -->
+                </div>
+                <button type="button" id="add-conta-btn" class="mt-4 text-accent-gold font-semibold">+ Adicionar Conta</button>
+            </div>
+
+            <div class="pt-6">
+                <button type="submit" class="button-primary">Concluir e Ir para o Dashboard</button>
+            </div>
+        </form>
+    </div>
+    <div id="toast-container"></div>
+</body>
+</html>
