@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Fluxo CLT</title>
+    <!-- **A CORREÇÃO ESTÁ AQUI**: Adicionado o script do Tailwind CSS para corrigir o design -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilos CSS complementares */
+        /* Estilos CSS diretamente no HTML para garantir que são aplicados */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; color: #FFFFFF; background-color: #222222; }
         .bg-carbon-light { background-color: #333333; }
         .text-accent-gold { color: #FFD700; }
-        .form-input { width: 100%; padding: 0.75rem 1rem; background-color: #444444; border: 1px solid #555555; color: #FFFFFF; border-radius: 0.5rem; transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .form-input { width: 100%; margin-top: 0.25rem; padding: 0.75rem 1rem; background-color: #444444; border: 1px solid #555555; color: #FFFFFF; border-radius: 0.5rem; transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
         .form-input:focus { outline: none; border-color: #FFD700; box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5); }
         .button-primary { width: 100%; padding: 0.75rem 1rem; font-weight: 600; color: #1a1a1a; background-color: #FFD700; border-radius: 0.5rem; transition: background-color 0.2s ease-in-out; border: none; cursor: pointer; }
         .button-primary:hover { background-color: #FFC700; }
@@ -54,6 +55,7 @@
     </div>
     <div id="toast-container"></div>
 
+    <!-- TODO O JAVASCRIPT ESTÁ AQUI DENTRO -->
     <script type="module">
         // Importações diretas do Firebase
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
@@ -62,14 +64,14 @@
 
         // 1. INICIALIZAÇÃO DO FIREBASE
         const firebaseConfig = {
-  apiKey: "AIzaSyCZPZY8AJAJxPJ11xGj2tOWIGHdjh0_W3w",
-  authDomain: "minhasfinancasclt.firebaseapp.com",
-  projectId: "minhasfinancasclt",
-  storageBucket: "minhasfinancasclt.firebasestorage.app",
-  messagingSenderId: "551624927055",
-  appId: "1:551624927055:web:c92968f4d02551df6ec73a",
-  measurementId: "G-09Q73V2B1B"
-};
+            apiKey: "AIzaSyCZPZY8AJAJxPJ11xGj2tOWIGHdjh0_W3w",
+            authDomain: "minhasfinancasclt.firebaseapp.com",
+            projectId: "minhasfinancasclt",
+            storageBucket: "minhasfinancasclt.firebasestorage.app",
+            messagingSenderId: "551624927055",
+            appId: "1:551624927055:web:c92968f4d02551df6ec73a",
+            measurementId: "G-09Q73V2B1B"
+        };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -110,7 +112,7 @@
                 const userDocRef = doc(db, "users", user.uid);
                 const userDocSnap = await getDoc(userDocRef);
                 if (userDocSnap.exists() && userDocSnap.data().onboardingComplete) {
-                    window.location.href = 'index.html';
+                    window.location.href = 'index.html'; // Usar .href para garantir o carregamento
                 } else {
                     window.location.href = 'onboarding.html';
                 }
