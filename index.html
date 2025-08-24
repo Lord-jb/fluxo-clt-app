@@ -5,35 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Fluxo CLT</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-    <script type="module" src="js/main.js" defer></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #1a1a1a; color: #FFFFFF; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; color: #FFFFFF; background-color: #1a1a1a; }
         .bg-carbon { background-color: #222222; }
         .bg-carbon-light { background-color: #333333; }
         .bg-accent-gold { background-color: #FFD700; color: #1a1a1a; }
         .bg-accent-gold:hover { background-color: #FFC700; }
         .text-accent-gold { color: #FFD700; }
-        .border-accent-gold { border-color: #FFD700; }
-        .form-input { background-color: #444444; border: 1px solid #555555; color: #FFFFFF; }
-        .form-input:focus { outline: none; border-color: #FFD700; box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5); }
         .nav-item { transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
         .nav-item.active { background-color: #FFD700; color: #1a1a1a; font-weight: 600; }
         .nav-item.active svg { color: #1a1a1a; }
-        .toast { position: fixed; top: 20px; right: 20px; padding: 1rem 1.5rem; border-radius: 0.5rem; color: white; z-index: 9999; opacity: 0; transform: translateY(-20px); transition: opacity 0.3s ease, transform 0.3s ease; }
-        .toast.show { opacity: 1; transform: translateY(0); }
-        .toast.success { background-color: #28a745; }
-        .toast.error { background-color: #dc3545; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #222; }
-        ::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #FFD700; }
     </style>
 </head>
-<body class="flex h-screen">
+<body class="flex h-screen bg-gray-900">
 
     <!-- Menu de Navegação -->
     <nav class="bg-carbon text-white w-64 p-4 space-y-4 hidden md:flex md:flex-col">
@@ -41,20 +27,14 @@
         <a href="#dashboard" class="nav-item flex items-center p-3 rounded-lg"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>Dashboard</a>
         <a href="#perfil" class="nav-item flex items-center p-3 rounded-lg"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>Perfil CLT</a>
         <a href="#transacoes" class="nav-item flex items-center p-3 rounded-lg"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>Transações</a>
-        <a href="#metas" class="nav-item flex items-center p-3 rounded-lg"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>Metas</a>
-        <a href="#rescisao" class="nav-item flex items-center p-3 rounded-lg"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Calculadora de Rescisão</a>
         <div class="mt-auto"><button class="logout-btn w-full text-left nav-item flex items-center p-3 rounded-lg"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>Sair</button></div>
     </nav>
     
     <!-- Conteúdo Principal -->
     <main class="flex-1 p-4 md:p-8 overflow-y-auto pb-20 md:pb-8">
-        
-        <section id="view-dashboard" class="app-view space-y-8"></section>
-        <section id="view-perfil" class="app-view hidden space-y-8"></section>
-        <section id="view-transacoes" class="app-view hidden space-y-8"></section>
-        <section id="view-metas" class="app-view hidden space-y-8"></section>
-        <section id="view-rescisao" class="app-view hidden space-y-8"></section>
-
+        <div id="app-content">
+            <!-- Os módulos serão renderizados aqui pelo JS -->
+        </div>
     </main>
     
     <!-- Bottom Bar (Mobile) -->
@@ -62,9 +42,110 @@
         <a href="#dashboard" class="nav-item flex flex-col items-center p-2 rounded-lg text-xs"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>Dashboard</a>
         <a href="#perfil" class="nav-item flex flex-col items-center p-2 rounded-lg text-xs"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>Perfil</a>
         <a href="#transacoes" class="nav-item flex flex-col items-center p-2 rounded-lg text-xs"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>Transações</a>
-        <a href="#metas" class="nav-item flex flex-col items-center p-2 rounded-lg text-xs"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>Metas</a>
-        <a href="#rescisao" class="nav-item flex flex-col items-center p-2 rounded-lg text-xs"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Rescisão</a>
     </nav>
     <div id="toast-container"></div>
+
+    <!-- TODO O JAVASCRIPT ESTÁ AQUI DENTRO -->
+    <script type="module">
+        // 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCZPZY8AJAJxPJ11xGj2tOWIGHdjh0_W3w",
+            authDomain: "minhasfinancasclt.firebaseapp.com",
+            projectId: "minhasfinancasclt",
+            storageBucket: "minhasfinancasclt.firebasestorage.app",
+            messagingSenderId: "551624927055",
+            appId: "1:551624927055:web:c92968f4d02551df6ec73a",
+            measurementId: "G-09Q73V2B1B"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // 2. ESTADO GLOBAL DA APLICAÇÃO
+        let currentUserData = {};
+
+        // 3. MÓDULO UI (O "PINTOR")
+        function renderDashboardModule(container, userData) {
+            container.innerHTML = `
+                <div class="space-y-8">
+                    <div class="bg-carbon-light p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-bold mb-4">Bem-vindo(a) de volta!</h2>
+                        <p>Olá, ${userData.email}. Aqui está o resumo do seu mês.</p>
+                    </div>
+                    <div class="bg-carbon-light p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-bold mb-4">Calendário de Contas</h2>
+                        <p class="text-gray-400">Em breve: um calendário com as suas contas fixas.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 4. LÓGICA PRINCIPAL (O "ORQUESTRADOR")
+        function setupNavigation() {
+            const navLinks = document.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const viewName = link.hash.substring(1);
+                    window.location.hash = viewName;
+                    switchView(viewName);
+                });
+            });
+        }
+
+        function switchView(viewName) {
+            const appContent = document.getElementById('app-content');
+            appContent.innerHTML = '';
+
+            document.querySelectorAll('.nav-item').forEach(link => {
+                link.classList.toggle('active', (link.hash.substring(1) || 'dashboard') === viewName);
+            });
+
+            switch(viewName) {
+                case 'dashboard':
+                    renderDashboardModule(appContent, currentUserData);
+                    break;
+                case 'perfil':
+                    appContent.innerHTML = '<div class="bg-carbon-light p-6 rounded-xl shadow-lg"><h1>Perfil CLT (Em construção)</h1></div>';
+                    break;
+                case 'transacoes':
+                    appContent.innerHTML = '<div class="bg-carbon-light p-6 rounded-xl shadow-lg"><h1>Transações (Em construção)</h1></div>';
+                    break;
+                default:
+                    renderDashboardModule(appContent, currentUserData);
+                    break;
+            }
+        }
+
+        async function initializeIndexPage(user) {
+            const userDocRef = doc(db, "users", user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (userDocSnap.exists()) {
+                currentUserData = userDocSnap.data();
+                
+                setupNavigation();
+                document.querySelectorAll('.logout-btn').forEach(btn => btn.addEventListener('click', () => signOut(auth)));
+                
+                switchView(window.location.hash.substring(1) || 'dashboard');
+            } else {
+                console.warn("Documento do utilizador não encontrado, redirecionando para o onboarding.");
+                window.location.replace('onboarding.html');
+            }
+        }
+
+        // 5. PONTO DE ENTRADA DA APLICAÇÃO
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                initializeIndexPage(user);
+            } else {
+                window.location.replace('login.html');
+            }
+        });
+    </script>
 </body>
 </html>
